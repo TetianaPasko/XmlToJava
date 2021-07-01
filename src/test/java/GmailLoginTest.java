@@ -6,19 +6,17 @@ import org.testng.annotations.Test;
 import pomclasses.EmailLogin;
 import pomclasses.EmailPassword;
 
-import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 public class GmailLoginTest {
     public static final String driverPath = "src/main/resources/chromedriver";
     public static final String loginPage = "https://accounts.google.com/";
 
     WebDriver driver;
-
     EmailLogin objLogin;
     EmailPassword objPassword;
 
     @BeforeTest
-
     public void setup(){
         System.setProperty("webdriver.chrome.driver", driverPath);
         driver = new ChromeDriver();
@@ -34,7 +32,7 @@ public class GmailLoginTest {
         Assert.assertTrue(loginPageTitle.contains("Увійти"));
         objLogin.enterEmail("automationtestarsi@gmail.com");
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
         objPassword = new EmailPassword(driver);
         objPassword.finishLogin("Test123!");
@@ -46,7 +44,7 @@ public class GmailLoginTest {
         objLogin.navigateToLoginPage(loginPage);
         objLogin.enterEmail("automationtestarsi@gmail.com");
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 
         objPassword = new EmailPassword(driver);
         objPassword.finishLogin("Test123");
